@@ -77,13 +77,15 @@ class RandomGacha {
         }
 
         System.out.println(result);
+    }
+
+    void returnCoin() {
         System.out.println("남은 동전을 반환합니다...");
         while (coin > 0) {
             System.out.print("\uD83D\uDFE1 ");
             coin--;
         }
-        System.out.println();
-        System.out.println("완료 !");
+        System.out.println("...끝!");
     }
 }
 
@@ -95,5 +97,6 @@ class RandomGachaTest {
         int coins = gacha.getUserCoin();
         gacha.insertCoin(coins);
         gacha.draw();
+        gacha.returnCoin();
     }
 }
