@@ -34,7 +34,7 @@ class RandomGacha {
         this.coin += coins;
     }
 
-    void draw() {
+    void pick() {
         StringBuilder result = new StringBuilder();
         Stream<CocoaMember> memberStream;
         memberStream = members.stream();
@@ -61,7 +61,7 @@ class RandomGacha {
 
         int coins = gacha.getUserCoin();
         gacha.insertCoin(coins);
-        gacha.draw();
+        gacha.pick();
         gacha.returnCoin();
     }
 }
