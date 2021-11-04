@@ -1,16 +1,15 @@
 package mission2_0;
 
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Stream;
 
 class RandomGacha {
 
     private int coin = 0;
-    CocoaMember[] members;
+    List<CocoaMember> members;
 
     RandomGacha() {
-        this.members = CocoaMember.makeSquad1();
-        shuffleMember();
+        this.members = CocoaMember.makeShuffledSquad();
     }
 
     int getUserCoin() {
@@ -35,28 +34,17 @@ class RandomGacha {
         this.coin += coins;
     }
 
-    void shuffleMember() {
-        // 배열을 섞는게 효율적일까, draw() 내에서 중복없는 난수를 발생시키는게 효율적일까?
-        CocoaMember temp = null;
-        for (int i = 0; i < members.length; i++) {
-            int j = new Random().nextInt(members.length);
-            temp = members[i];
-            members[i] = members[j];
-            members[j] = temp;
-        }
-    }
-
     void draw() {
         StringBuilder result = new StringBuilder();
+        Stream<CocoaMember> memberStream;
+        memberStream = members.stream();
 
-        int i = 0;
-        while (coin > 0 && i < members.length) {
-            result.append(members[i].getName() + ", ");
-            i++;
-            coin--;
-        }
+        memberStream
+            .limit(coin)
+            .peek(member -> coin--)
+            .forEach(member -> result.append(member.getName() + ", "));
 
-        System.out.println(result);
+        System.out.println(result.substring(0, result.length() - 2));
     }
 
     void returnCoin() {
